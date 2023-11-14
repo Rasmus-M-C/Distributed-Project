@@ -107,10 +107,14 @@ def download_file(file_id):
     if f['storage_mode'] == 'raid1':
         part1_filenames = storage_details['part1_filenames'] 
         part2_filenames = storage_details['part2_filenames']
+        part3_filenames = storage_details['part3_filenames']
+        part4_filenames = storage_details['part4_filenames']
         
         file_data = raid1.get_file(
             part1_filenames,
             part2_filenames,
+            part3_filenames,
+            part4_filenames,
             data_req_socket,
             response_socket
         )
@@ -221,11 +225,13 @@ def add_files_multipart():
     print("Storage mode: %s" % storage_mode)
 
     if storage_mode == 'raid1':
-        file_data_1_names, file_data_2_names = raid1.store_file(data, send_task_socket, response_socket)
+        file_data_1_names, file_data_2_names, file_data_3_names,file_data_4_names = raid1.store_file(data, send_task_socket, response_socket)
         
         storage_details = {
             "part1_filenames": file_data_1_names,
-            "part2_filenames": file_data_2_names
+            "part2_filenames": file_data_2_names,
+            "part3_filenames": file_data_3_names,
+            "part4_filenames": file_data_4_names
         }
    
     elif storage_mode == 'erasure_coding_rs':
