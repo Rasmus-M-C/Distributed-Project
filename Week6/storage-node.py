@@ -16,7 +16,9 @@ from utils import random_string, write_file, is_raspberry_pi
 
 # Read the folder name where chunks should be stored from the first program argument
 # (or use the current folder if none was given)
+
 data_folder = sys.argv[1] if len(sys.argv) > 1 else "./"
+
 if data_folder != "./":
     # Try to create the folder  
     try:
@@ -28,9 +30,12 @@ print("Data folder: %s" % data_folder)
 
 
 # On the local computer: use localhost
-pull_address = "tcp://localhost:5557"
+pull_address = f"tcp://localhost:{int(sys.argv[2]) * 3 + 5557}"
 push_address = "tcp://localhost:5558"
 subscriber_address = "tcp://localhost:5559"
+
+print("Pull address: %s" % pull_address)
+print("Push address: %s" % push_address)
     
 
 context = zmq.Context()
@@ -77,6 +82,7 @@ while True:
 
         # Store the chunk with the given filename
         chunk_local_path = data_folder+'/'+task.filename
+        print("Saving chunk to %s" % chunk_local_path)
         write_file(data, chunk_local_path)
         print("Chunk saved to %s" % chunk_local_path)
 
