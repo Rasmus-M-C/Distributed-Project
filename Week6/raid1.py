@@ -14,7 +14,7 @@ context = zmq.Context()
 
 
 def store_file(file_data, response_socket, N):
-
+    N = int(N)
     DATAADDRESSES = [f"tcp://*:{(i+1) * 3 + 5557}" for i in range(N)]
 
     #A list of lists of length 3 created from N elements

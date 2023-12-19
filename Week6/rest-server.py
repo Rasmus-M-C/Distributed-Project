@@ -24,7 +24,9 @@ from utils import is_raspberry_pi
 import sys
 
 
-N = sys.argv[2] if len(sys.argv) > 2 else 9
+N = sys.argv[1] if len(sys.argv) > 1 else 9
+
+print(N)
 
 def get_db():
     if 'db' not in g:

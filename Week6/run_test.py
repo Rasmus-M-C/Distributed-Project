@@ -6,9 +6,6 @@ N = 26
 # List of Python files to run
 python_files = ["storage-node.py" for _ in range(N)] + [ "rest-server.py"]
 
-
-
-
 # Run each Python script with its corresponding arguments
 processes = []
 
@@ -25,8 +22,6 @@ for script_file in python_files:
     processes.append(process)
     sleep(0.2)
     
-    
-
 # Wait for all subprocesses to finish
 for process in processes:
     process.wait()
