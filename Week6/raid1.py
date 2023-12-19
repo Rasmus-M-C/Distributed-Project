@@ -85,10 +85,11 @@ def get_file(part1_filenames, part2_filenames, part3_filenames, part4_filenames,
     :return: The original file contents
     """
     # Select one chunk of each half
+    print(len(part1_filenames), len(part2_filenames), len(part3_filenames), len(part4_filenames))
     part1_filename = part1_filenames[random.randint(0, len(part1_filenames)-1)]
     part2_filename = part2_filenames[random.randint(0, len(part2_filenames)-1)]
-    part3_filename = part3_filenames[random.randint(0, len(part3_filenames)-2)]
-    part4_filename = part4_filenames[random.randint(0, len(part4_filenames)-3)]
+    part3_filename = part3_filenames[random.randint(0, len(part3_filenames)-1)]
+    part4_filename = part4_filenames[random.randint(0, len(part4_filenames)-1)]
     # Request both chunks in parallel
     task1 = messages_pb2.getdata_request()
     task1.filename = part1_filename
@@ -106,7 +107,7 @@ def get_file(part1_filenames, part2_filenames, part3_filenames, part4_filenames,
         task3.SerializeToString()
     )
     task4 = messages_pb2.getdata_request()
-    task3.filename = part4_filename
+    task4.filename = part4_filename
     data_req_socket.send(
         task4.SerializeToString()
     )
