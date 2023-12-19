@@ -101,17 +101,24 @@ while True:
         filename = task.filename
         print("Data chunk request: %s" % filename)
 
-        # Try to load the requested file from the local file system,
-        # send response only if found
-        try:
-            with open(data_folder+'/'+filename, "rb") as in_file:
-                print("Found chunk %s, sending it back" % filename)
-
-                sender.send_multipart([
-                    bytes(filename, 'utf-8'),
-                    in_file.read()
-                ])
-        except FileNotFoundError:
-            # This is OK here
-            pass
+        if filename.startswith("check:"):
+            check_only_filename = filename[len("check:"):]  # Remove the "check:" prefix
+            file_exists = os.path.exists(data_folder + '/' + check_only_filename)
+            print(f"Check existence for {check_only_filename}: {'Found' if file_exists else 'Not Found'}")
+            # Send back a simple confirmation message
+            confirmation = "Exists" if file_exists else "Not Found"
+            sender.send_string(confirmation)
+        else:
+            # Normal get data request
+            try:
+                with open(data_folder + '/' + filename, "rb") as in_file:
+                    print(f"Found chunk {filename}, sending it back")
+                    sender.send_multipart([
+                        bytes(filename, 'utf-8'),
+                        in_file.read()
+                    ])
+            except FileNotFoundError:
+                print(f"Chunk {filename} not found")
+                # Optionally, send back a "not found" message
+                sender.send_string("Not Found")
 #
