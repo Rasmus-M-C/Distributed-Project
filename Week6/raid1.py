@@ -22,11 +22,12 @@ def store_file(file_data, send_task_socket, response_socket):
     file_data_3 = file_data[math.ceil(2*size/4.0):math.ceil(3*size/4.0)]
     file_data_4 = file_data[math.ceil(3*size/4.0):math.ceil(4*size/4.0)]
 
-    # Generate two random chunk names for each half
-    file_data_1_names = [random_string(8), random_string(8)]
-    file_data_2_names = [random_string(8), random_string(8)]
-    file_data_3_names = [random_string(8), random_string(8)]
-    file_data_4_names = [random_string(8), random_string(8)]
+    # Generate two random chunk names for each half    -- k chunks = [0, 1, 2, ..., k-1]]
+    k = 2
+    file_data_1_names = [random_string(8) for _ in range(k)]
+    file_data_2_names = [random_string(8) for _ in range(k)]
+    file_data_3_names = [random_string(8) for _ in range(k)]
+    file_data_4_names = [random_string(8) for _ in range(k)]
     print("Filenames for part 1: %s" % file_data_1_names)
     print("Filenames for part 2: %s" % file_data_2_names)
     print("Filenames for part 3: %s" % file_data_3_names)
