@@ -185,6 +185,7 @@ def add_files():
     file_data = base64.b64decode(payload.get('contents_b64'))
     size = len(file_data)
 
+    # -- should receive 4 names, the lenth of each list is the number of replicas k
     file_data_1_names, file_data_2_names = raid1.store_file(file_data, send_task_socket, response_socket)
     
     # Insert the File record in the DB
@@ -225,7 +226,7 @@ def add_files_multipart():
     print("Storage mode: %s" % storage_mode)
 
     if storage_mode == 'raid1':
-        file_data_1_names, file_data_2_names, file_data_3_names,file_data_4_names = raid1.store_file(data, send_task_socket, response_socket)
+        file_data_1_names, file_data_2_names, file_data_3_names, file_data_4_names = raid1.store_file(data, send_task_socket, response_socket)
         
         storage_details = {
             "part1_filenames": file_data_1_names,

@@ -22,11 +22,12 @@ def store_file(file_data, send_task_socket, response_socket):
     file_data_3 = file_data[math.ceil(2*size/4.0):math.ceil(3*size/4.0)]
     file_data_4 = file_data[math.ceil(3*size/4.0):math.ceil(4*size/4.0)]
 
-    # Generate two random chunk names for each half
-    file_data_1_names = [random_string(8), random_string(8)]
-    file_data_2_names = [random_string(8), random_string(8)]
-    file_data_3_names = [random_string(8), random_string(8)]
-    file_data_4_names = [random_string(8), random_string(8)]
+    # Generate two random chunk names for each half    -- k chunks = [0, 1, 2, ..., k-1]]
+    k = 2
+    file_data_1_names = [random_string(8) for _ in range(k)]
+    file_data_2_names = [random_string(8) for _ in range(k)]
+    file_data_3_names = [random_string(8) for _ in range(k)]
+    file_data_4_names = [random_string(8) for _ in range(k)]
     print("Filenames for part 1: %s" % file_data_1_names)
     print("Filenames for part 2: %s" % file_data_2_names)
     print("Filenames for part 3: %s" % file_data_3_names)
@@ -87,8 +88,8 @@ def get_file(part1_filenames, part2_filenames, part3_filenames, part4_filenames,
     # Select one chunk of each half
     part1_filename = part1_filenames[random.randint(0, len(part1_filenames)-1)]
     part2_filename = part2_filenames[random.randint(0, len(part2_filenames)-1)]
-    part3_filename = part3_filenames[random.randint(0, len(part3_filenames)-2)]
-    part4_filename = part4_filenames[random.randint(0, len(part4_filenames)-3)]
+    part3_filename = part3_filenames[random.randint(0, len(part3_filenames)-1)]
+    part4_filename = part4_filenames[random.randint(0, len(part4_filenames)-1)]
     # Request both chunks in parallel
     task1 = messages_pb2.getdata_request()
     task1.filename = part1_filename
@@ -106,7 +107,7 @@ def get_file(part1_filenames, part2_filenames, part3_filenames, part4_filenames,
         task3.SerializeToString()
     )
     task4 = messages_pb2.getdata_request()
-    task3.filename = part4_filename
+    task4.filename = part4_filename
     data_req_socket.send(
         task4.SerializeToString()
     )
