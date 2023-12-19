@@ -1,15 +1,25 @@
 import messages_pb2
 import math
 import random
+import zmq
 
 from utils import random_string
 
-def store_file(file_data, send_task_socket, response_socket):
+context = zmq.Context()
+
+DATAADDRESSES = [f"tcp://*:{(i+1) * 3 + 5557}" for i in range(9)]
+N = 3
+BUDDYGROUPS = [[0, 1, 2], [3, 4, 5], [6, 7, 8]]
+
+print("DATAADDRESSES: ", DATAADDRESSES)
+print("BUDDYGROUPS: ", BUDDYGROUPS)
+
+def store_file(file_data, response_socket):
     """
     Implements storing a file with RAID 1 using 4 storage nodes.
 
     :param file_data: A bytearray that holds the file contents
-    :param send_task_socket: A ZMQ PUSH socket to the storage nodes
+    :param send_task_sockets: A list of ZMQ PUSH socket to the storage nodes
     :param response_socket: A ZMQ PULL socket where the storage nodes respond.
     :return: A list of the random generated chunk names, e.g. (c1,c2), (c3,c4)
     """
@@ -28,48 +38,171 @@ def store_file(file_data, send_task_socket, response_socket):
     file_data_2_names = [random_string(8) for _ in range(k)]
     file_data_3_names = [random_string(8) for _ in range(k)]
     file_data_4_names = [random_string(8) for _ in range(k)]
-    print("Filenames for part 1: %s" % file_data_1_names)
-    print("Filenames for part 2: %s" % file_data_2_names)
-    print("Filenames for part 3: %s" % file_data_3_names)
-    print("Filenames for part 4: %s" % file_data_4_names)
-
 
     # Send 2 'store data' Protobuf requests with the first half and chunk names
-    for name in file_data_1_names:
-        task = messages_pb2.storedata_request()
-        task.filename = name
-        send_task_socket.send_multipart([
-            task.SerializeToString(),
-            file_data_1
-        ])
+    placementMethod = "minset"
 
-    # Send 2 'store data' Protobuf requests with the second half and chunk names
-    for name in file_data_2_names:
-        task = messages_pb2.storedata_request()
-        task.filename = name
-        send_task_socket.send_multipart([
-            task.SerializeToString(),
-            file_data_2
-        ])
-    for name in file_data_3_names:
-        task = messages_pb2.storedata_request()
-        task.filename = name
-        send_task_socket.send_multipart([
-            task.SerializeToString(),
-            file_data_3
-        ])
-    for name in file_data_4_names:
-        task = messages_pb2.storedata_request()
-        task.filename = name
-        send_task_socket.send_multipart([
-            task.SerializeToString(),
-            file_data_4
-        ])
+    if placementMethod == "random":
+        #Random
+        addresses = random.sample(DATAADDRESSES, k=N)
 
-    # Wait until we receive 4 responses from the workers
-    for task_nbr in range(4):
-        resp = response_socket.recv_string()
-        print('Received: %s' % resp)
+        for name in file_data_1_names:
+            task = messages_pb2.storedata_request()
+            task.filename = name
+            address = random.choice(addresses)
+            send_task_socket = context.socket(zmq.PUSH)
+            send_task_socket.bind(address)
+            send_task_socket.send_multipart([
+                    task.SerializeToString(),
+                    file_data_1
+                ])
+            send_task_socket.close()
+        for name in file_data_2_names:
+            task = messages_pb2.storedata_request()
+            task.filename = name
+            address = random.choice(addresses)
+            send_task_socket = context.socket(zmq.PUSH)
+            send_task_socket.bind(address)
+            send_task_socket.send_multipart([
+                    task.SerializeToString(),
+                    file_data_2
+                ])
+            send_task_socket.close()
+        for name in file_data_3_names:
+            task = messages_pb2.storedata_request()
+            task.filename = name
+            address = random.choice(addresses)
+            send_task_socket = context.socket(zmq.PUSH)
+            send_task_socket.bind(address)
+            send_task_socket.send_multipart([
+                    task.SerializeToString(),
+                    file_data_3
+                ])
+            send_task_socket.close()
+        for name in file_data_4_names:
+            task = messages_pb2.storedata_request()
+            task.filename = name
+            address = random.choice(addresses)
+            send_task_socket = context.socket(zmq.PUSH)
+            send_task_socket.bind(address)
+            send_task_socket.send_multipart([
+                    task.SerializeToString(),
+                    file_data_4
+                ])
+            send_task_socket.close()
+        # Wait until we receive 8 responses from the workers
+        #print("Waiting for responses...", range(len(file_data_1_names) + len(file_data_2_names) + len(file_data_3_names) + len(file_data_4_names)))
+        for task_nbr in range(len(file_data_1_names) + len(file_data_2_names) + len(file_data_3_names) + len(file_data_4_names)):
+            resp = response_socket.recv_string()
+            print('Received: %s' % resp)
+
+    elif placementMethod == "minset":
+        #MinSet
+        addresses = random.sample(DATAADDRESSES, k=N)
+
+        for address in addresses:
+            send_task_socket = context.socket(zmq.PUSH)
+            send_task_socket.bind(address)
+            print("Sending to %s" % address)
+
+            for name in file_data_1_names:
+                task = messages_pb2.storedata_request()
+                task.filename = name
+                send_task_socket.send_multipart([
+                    task.SerializeToString(),
+                    file_data_1
+                ])
+            for name in file_data_2_names:
+                task = messages_pb2.storedata_request()
+                task.filename = name
+                send_task_socket.send_multipart([
+                    task.SerializeToString(),
+                    file_data_2
+                ])
+            for name in file_data_3_names:
+                task = messages_pb2.storedata_request()
+                task.filename = name
+                send_task_socket.send_multipart([
+                    task.SerializeToString(),
+                    file_data_3
+                ])
+            for name in file_data_4_names:
+                task = messages_pb2.storedata_request()
+                task.filename = name
+                send_task_socket.send_multipart([
+                    task.SerializeToString(),
+                    file_data_4
+                ])
+            send_task_socket.close()
+        # Wait until we receive 16 responses from the workers
+        for task_nbr in range((len(file_data_1_names) + len(file_data_2_names) + len(file_data_3_names) + len(file_data_4_names)) * 3): # N = 3
+            resp = response_socket.recv_string()
+            print('Received: %s' % resp)
+
+    elif placementMethod == "buddygroup":
+        #BuddyGroup
+        buddy_group = random.choice(BUDDYGROUPS)
+        addresses = [DATAADDRESSES[i] for i in buddy_group]
+        
+        print("addresses: ", addresses)
+
+        for name in file_data_1_names:
+            task = messages_pb2.storedata_request()
+            task.filename = name
+            address = random.choice(addresses)
+            send_task_socket = context.socket(zmq.PUSH)
+            send_task_socket.bind(address)
+            send_task_socket.send_multipart([
+                    task.SerializeToString(),
+                    file_data_1
+                ])
+            send_task_socket.close()
+        for name in file_data_2_names:
+            task = messages_pb2.storedata_request()
+            task.filename = name
+            address = random.choice(addresses)
+            send_task_socket = context.socket(zmq.PUSH)
+            send_task_socket.bind(address)
+            send_task_socket.send_multipart([
+                    task.SerializeToString(),
+                    file_data_2
+                ])
+            send_task_socket.close()
+        for name in file_data_3_names:
+            task = messages_pb2.storedata_request()
+            task.filename = name
+            address = random.choice(addresses)
+            send_task_socket = context.socket(zmq.PUSH)
+            send_task_socket.bind(address)
+            send_task_socket.send_multipart([
+                    task.SerializeToString(),
+                    file_data_3
+                ])
+            send_task_socket.close()
+        for name in file_data_4_names:
+            task = messages_pb2.storedata_request()
+            task.filename = name
+            address = random.choice(addresses)
+            send_task_socket = context.socket(zmq.PUSH)
+            send_task_socket.bind(address)
+            send_task_socket.send_multipart([
+                    task.SerializeToString(),
+                    file_data_4
+                ])
+            send_task_socket.close()
+
+        # Wait until we receive 8 responses from the workers
+        #print("Waiting for responses...", range(len(file_data_1_names) + len(file_data_2_names) + len(file_data_3_names) + len(file_data_4_names)))
+        for task_nbr in range(len(file_data_1_names) + len(file_data_2_names) + len(file_data_3_names) + len(file_data_4_names)):
+            resp = response_socket.recv_string()
+            print('Received: %s' % resp)
+        
+        
+    
+
+    
+
+    
     
     # Return the chunk names of each replica
     return file_data_1_names, file_data_2_names, file_data_3_names, file_data_4_names
@@ -115,16 +248,14 @@ def get_file(part1_filenames, part2_filenames, part3_filenames, part4_filenames,
 
     # Receive both chunks and insert them to 
     file_data_parts = [None, None, None, None]
-    for _ in range(4):
+    while(file_data_parts.count(None) > 0):
         result = response_socket.recv_multipart()
         # First frame: file name (string)
-        print("result: %s" % result)
+        #print("result: %s" % result)
         filename_received = result[0].decode('utf-8')
         # Second frame: data
         print("Received %s" % filename_received)
         chunk_data = result[1]
-
-        print("Received %s" % filename_received)
 
         if filename_received == part1_filename:
             # The first part was received

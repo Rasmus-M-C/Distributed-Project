@@ -45,19 +45,20 @@ context = zmq.Context()
 
 # Socket to send tasks to Storage Nodes
 send_task_socket = context.socket(zmq.PUSH)
-send_task_socket.bind("tcp://*:5557")
+send_task_socket.bind("tcp://*:5556") ## skal ændres
 
 # Socket to receive messages from Storage Nodes
 response_socket = context.socket(zmq.PULL)
-response_socket.bind("tcp://*:5558")
+response_socket.bind("tcp://*:5558") ## skal ændres
 
 # Publisher socket for data request broadcasts
 data_req_socket = context.socket(zmq.PUB)
 data_req_socket.bind("tcp://*:5559")
 
+
 # Wait for all workers to start and connect. 
 time.sleep(1)
-print("Listening to ZMQ messages on tcp://*:5558")
+print("Listening to ZMQ messages on tcp://*:5560")
 
 
 # Instantiate the Flask app (must be before the endpoint functions)
@@ -226,7 +227,7 @@ def add_files_multipart():
     print("Storage mode: %s" % storage_mode)
 
     if storage_mode == 'raid1':
-        file_data_1_names, file_data_2_names, file_data_3_names, file_data_4_names = raid1.store_file(data, send_task_socket, response_socket)
+        file_data_1_names, file_data_2_names, file_data_3_names, file_data_4_names = raid1.store_file(data, response_socket)
         
         storage_details = {
             "part1_filenames": file_data_1_names,
