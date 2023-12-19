@@ -26,17 +26,11 @@ if data_folder != "./":
         pass
 print("Data folder: %s" % data_folder)
 
-if is_raspberry_pi():
-    # On the Raspberry Pi: ask the user to input the last segment of the server IP address
-    server_address = input("Server address: 192.168.0.___ ")
-    pull_address = "tcp://192.168.0."+server_address+":5557"
-    sender_address = "tcp://192.168.0."+server_address+":5558"
-    subscriber_address = "tcp://192.168.0."+server_address+":5559"
-else:
-    # On the local computer: use localhost
-    pull_address = "tcp://localhost:5557"
-    push_address = "tcp://localhost:5558"
-    subscriber_address = "tcp://localhost:5559"
+
+# On the local computer: use localhost
+pull_address = "tcp://localhost:5557"
+push_address = "tcp://localhost:5558"
+subscriber_address = "tcp://localhost:5559"
     
 
 context = zmq.Context()
