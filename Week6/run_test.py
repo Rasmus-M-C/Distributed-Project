@@ -16,7 +16,7 @@ i = 1
 for script_file in python_files:
     if i <= N:
         print("Running ", script_file, " with args ", f"node0{i}", f"{i}")
-        process = subprocess.Popen(["python3", script_file] + [f"node{i}", f"{i}"])
+        process = subprocess.Popen(["python", script_file] + [f"node{i}", f"{i}"])
         i += 1
     else:
         print("Running ", script_file, " with args ", f"{N}")

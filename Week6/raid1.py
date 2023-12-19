@@ -4,6 +4,10 @@ import random
 import zmq
 
 from utils import random_string
+import zmq
+import json
+
+
 
 context = zmq.Context()
 
@@ -271,4 +275,58 @@ def get_file(part1_filenames, part2_filenames, part3_filenames, part4_filenames,
     # Combine the parts and return
     file_data = file_data_parts[0] + file_data_parts[1] + file_data_parts[2] + file_data_parts[3]
     return file_data
-#
+
+def fileslost(files, data_req_socket, response_socket):
+    lost_files = []
+    total_files = len(files)  # Count the total number of files
+
+    for file_record in files:
+        file_lost = False
+        storage_mode = file_record['storage_mode']
+        storage_details = json.loads(file_record['storage_details'])
+
+        if storage_mode != 'raid1':
+            continue
+
+        for part_key in ['part1_filenames', 'part2_filenames', 'part3_filenames', 'part4_filenames']:
+            if part_key not in storage_details or not storage_details[part_key]:
+                continue
+
+            part_filenames = storage_details[part_key]
+            part_available = False
+            for chunk_name in part_filenames:
+                if check_chunk_availability(chunk_name, data_req_socket, response_socket):
+                    part_available = True
+                    break
+            
+            if not part_available:
+                file_lost = True
+                break
+
+        if file_lost:
+            lost_files.append(file_record['filename'])
+
+    return lost_files, total_files
+def check_chunk_availability(chunk_name, data_req_socket, response_socket):
+    # Create and send a check request
+    check_request_filename = "check:" + chunk_name
+    task = messages_pb2.getdata_request()
+    task.filename = check_request_filename
+    data_req_socket.send(task.SerializeToString())
+
+    # Poll the response socket for a reply with a timeout
+    poller = zmq.Poller()
+    poller.register(response_socket, zmq.POLLIN)
+    poll_timeout = 5000  # Timeout in milliseconds
+
+    try:
+        if poller.poll(poll_timeout):
+            # If we get a reply, check if the chunk is available
+            response = response_socket.recv_string()
+            return response == "Exists"
+        else:
+            # Timeout occurred, assume chunk is not available
+            return False
+    except zmq.ZMQError as e:
+        print(f"Error in checking chunk availability: {e}")
+        return False
