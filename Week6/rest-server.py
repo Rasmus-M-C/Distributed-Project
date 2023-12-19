@@ -21,6 +21,10 @@ import raid1
 import reedsolomon
 
 from utils import is_raspberry_pi
+import sys
+
+
+N = sys.argv[2] if len(sys.argv) > 2 else 9
 
 def get_db():
     if 'db' not in g:
@@ -227,7 +231,7 @@ def add_files_multipart():
     print("Storage mode: %s" % storage_mode)
 
     if storage_mode == 'raid1':
-        file_data_1_names, file_data_2_names, file_data_3_names, file_data_4_names = raid1.store_file(data, response_socket)
+        file_data_1_names, file_data_2_names, file_data_3_names, file_data_4_names = raid1.store_file(data, response_socket, N)
         
         storage_details = {
             "part1_filenames": file_data_1_names,
