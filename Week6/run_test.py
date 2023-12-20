@@ -26,7 +26,7 @@ for script_file in python_files:
     else:
         print("Running ", script_file)
         process = subprocess.Popen(
-            ["python", script_file],
+            ["python", script_file] + [f" {N}"],
             shell=True
         )
         print("Process ID: ", process.pid)
@@ -47,7 +47,7 @@ pids = [str(process.pid) for process in processes_storage_nodes]
 #terminate_process = subprocess.Popen(["python", "terminate_processes.py", str(num_processes_to_terminate), str(delay_time_seconds)]+pids)
 
 processes_to_kill = random.sample(processes_storage_nodes, num_processes_to_terminate)
-print("processes_to_kill: ", pids)
+print("processes_to_kill: ", [process.id for process in processes_to_kill])
 
 # Terminating processes
 for i, process in enumerate(processes_storage_nodes):

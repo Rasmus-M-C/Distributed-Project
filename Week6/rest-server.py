@@ -26,7 +26,7 @@ import sys
 
 N = sys.argv[1] if len(sys.argv) > 1 else 9
 
-print(N)
+print("N: ",N)
 
 def get_db():
     if 'db' not in g:
