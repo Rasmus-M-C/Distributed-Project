@@ -11,14 +11,18 @@ import json
 
 context = zmq.Context()
 
-DATAADDRESSES = [f"tcp://*:{(i+1) * 3 + 5557}" for i in range(9)]
-N = 3
-BUDDYGROUPS = [[0, 1, 2], [3, 4, 5], [6, 7, 8]]
 
-print("DATAADDRESSES: ", DATAADDRESSES)
-print("BUDDYGROUPS: ", BUDDYGROUPS)
 
-def store_file(file_data, response_socket):
+def store_file(file_data, response_socket, N):
+    N = int(N)
+    DATAADDRESSES = [f"tcp://*:{(i+1) * 3 + 5557}" for i in range(N)]
+
+    #A list of lists of length 3 created from N elements
+    BUDDYGROUPS = [DATAADDRESSES[i:i+3] if i+3 <= N else DATAADDRESSES[i:N] for i in range(0, N, 3)]
+
+    print("DATAADDRESSES: ", DATAADDRESSES)
+    print("BUDDYGROUPS: ", BUDDYGROUPS)
+
     """
     Implements storing a file with RAID 1 using 4 storage nodes.
 
@@ -95,14 +99,13 @@ def store_file(file_data, response_socket):
                 ])
             send_task_socket.close()
         # Wait until we receive 8 responses from the workers
-        #print("Waiting for responses...", range(len(file_data_1_names) + len(file_data_2_names) + len(file_data_3_names) + len(file_data_4_names)))
         for task_nbr in range(len(file_data_1_names) + len(file_data_2_names) + len(file_data_3_names) + len(file_data_4_names)):
             resp = response_socket.recv_string()
             print('Received: %s' % resp)
 
     elif placementMethod == "minset":
         #MinSet
-        addresses = random.sample(DATAADDRESSES, k=N)
+        addresses = random.sample(DATAADDRESSES, k=3)
 
         for address in addresses:
             send_task_socket = context.socket(zmq.PUSH)
@@ -201,12 +204,6 @@ def store_file(file_data, response_socket):
             resp = response_socket.recv_string()
             print('Received: %s' % resp)
         
-        
-    
-
-    
-
-    
     
     # Return the chunk names of each replica
     return file_data_1_names, file_data_2_names, file_data_3_names, file_data_4_names

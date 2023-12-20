@@ -1,7 +1,5 @@
 Week6/*.db
-Week6/node1/*
-Week6/node2/*
-Week6/node3/*
+Week6/node*/*
 Week6/node*/*
 Week6/*
 Week6/__pycache__
