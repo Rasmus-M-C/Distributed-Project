@@ -1,5 +1,6 @@
 import subprocess
 from time import sleep
+import random
 
 number_of_nodes = 3
 # List of Python files to run
@@ -24,8 +25,24 @@ for script_file in python_files:
     processes.append(process)
     sleep(0.2)
     
-    
+# Set the delay time and number of processes to terminate
+delay_time_seconds = 5  # Set the delay time in seconds
+num_processes_to_terminate = 2  # Set the number of processes to terminate randomly
+
+# Get the PIDs of the processes
+pids = [str(process.pid) for process in processes]
+
+# Start the subprocess to terminate processes after the set time
+#terminate_process = subprocess.Popen(["python", "terminate_processes.py", str(num_processes_to_terminate), str(delay_time_seconds)]+pids)
+
+processes_to_kill = random.sample(processes, num_processes_to_terminate)
 
 # Wait for all subprocesses to finish
-for process in processes:
-    process.wait()
+for i, process in enumerate(processes):
+    if process in processes_to_kill:
+        sleep(5)
+        process.terminate()
+        sleep(0.2)
+        print(f"Terminated process {pids[i]}")
+    else:
+        process.wait()
