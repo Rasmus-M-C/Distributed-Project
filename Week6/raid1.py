@@ -4,17 +4,25 @@ import random
 import zmq
 
 from utils import random_string
+import zmq
+import json
+
+
 
 context = zmq.Context()
 
-DATAADDRESSES = [f"tcp://*:{(i+1) * 3 + 5557}" for i in range(9)]
-N = 3
-BUDDYGROUPS = [[0, 1, 2], [3, 4, 5], [6, 7, 8]]
 
-print("DATAADDRESSES: ", DATAADDRESSES)
-print("BUDDYGROUPS: ", BUDDYGROUPS)
 
-def store_file(file_data, response_socket):
+def store_file(file_data, response_socket, N):
+    N = int(N)
+    DATAADDRESSES = [f"tcp://*:{(i+1) * 3 + 5557}" for i in range(N)]
+
+    #A list of lists of length 3 created from N elements
+    BUDDYGROUPS = [DATAADDRESSES[i:i+3] if i+3 <= N else DATAADDRESSES[i:N] for i in range(0, N, 3)]
+
+    print("DATAADDRESSES: ", DATAADDRESSES)
+    print("BUDDYGROUPS: ", BUDDYGROUPS)
+
     """
     Implements storing a file with RAID 1 using 4 storage nodes.
 
@@ -91,14 +99,13 @@ def store_file(file_data, response_socket):
                 ])
             send_task_socket.close()
         # Wait until we receive 8 responses from the workers
-        #print("Waiting for responses...", range(len(file_data_1_names) + len(file_data_2_names) + len(file_data_3_names) + len(file_data_4_names)))
         for task_nbr in range(len(file_data_1_names) + len(file_data_2_names) + len(file_data_3_names) + len(file_data_4_names)):
             resp = response_socket.recv_string()
             print('Received: %s' % resp)
 
     elif placementMethod == "minset":
         #MinSet
-        addresses = random.sample(DATAADDRESSES, k=N)
+        addresses = random.sample(DATAADDRESSES, k=3)
 
         for address in addresses:
             send_task_socket = context.socket(zmq.PUSH)
@@ -197,12 +204,6 @@ def store_file(file_data, response_socket):
             resp = response_socket.recv_string()
             print('Received: %s' % resp)
         
-        
-    
-
-    
-
-    
     
     # Return the chunk names of each replica
     return file_data_1_names, file_data_2_names, file_data_3_names, file_data_4_names
@@ -274,4 +275,58 @@ def get_file(part1_filenames, part2_filenames, part3_filenames, part4_filenames,
     # Combine the parts and return
     file_data = file_data_parts[0] + file_data_parts[1] + file_data_parts[2] + file_data_parts[3]
     return file_data
-#
+
+def fileslost(files, data_req_socket, response_socket):
+    lost_files = []
+    total_files = len(files)  # Count the total number of files
+
+    for file_record in files:
+        file_lost = False
+        storage_mode = file_record['storage_mode']
+        storage_details = json.loads(file_record['storage_details'])
+
+        if storage_mode != 'raid1':
+            continue
+
+        for part_key in ['part1_filenames', 'part2_filenames', 'part3_filenames', 'part4_filenames']:
+            if part_key not in storage_details or not storage_details[part_key]:
+                continue
+
+            part_filenames = storage_details[part_key]
+            part_available = False
+            for chunk_name in part_filenames:
+                if check_chunk_availability(chunk_name, data_req_socket, response_socket):
+                    part_available = True
+                    break
+            
+            if not part_available:
+                file_lost = True
+                break
+
+        if file_lost:
+            lost_files.append(file_record['filename'])
+
+    return lost_files, total_files
+def check_chunk_availability(chunk_name, data_req_socket, response_socket):
+    # Create and send a check request
+    check_request_filename = "check:" + chunk_name
+    task = messages_pb2.getdata_request()
+    task.filename = check_request_filename
+    data_req_socket.send(task.SerializeToString())
+
+    # Poll the response socket for a reply with a timeout
+    poller = zmq.Poller()
+    poller.register(response_socket, zmq.POLLIN)
+    poll_timeout = 5000  # Timeout in milliseconds
+
+    try:
+        if poller.poll(poll_timeout):
+            # If we get a reply, check if the chunk is available
+            response = response_socket.recv_string()
+            return response == "Exists"
+        else:
+            # Timeout occurred, assume chunk is not available
+            return False
+    except zmq.ZMQError as e:
+        print(f"Error in checking chunk availability: {e}")
+        return False
