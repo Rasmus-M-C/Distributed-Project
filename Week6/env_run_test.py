@@ -4,9 +4,11 @@ import random
 import sys
 
 N = int(sys.argv[1]) # Number of nodes to run
-
 # List of Python files to run
-python_files = ["storage-node.py" for _ in range(N)] + [ "rest-server.py"]
+python_files = ["storage-node.py" for _ in range(N)] + ["rest-server.py"]
+
+# Activate virtual environment
+activate_env = r"C:\Users\m-esp\Documents\DistributedStorage\env\Scripts\activate.bat "  # Replace with the path to your virtualenv activation script
 
 # Run each Python script with its corresponding arguments
 processes_storage_nodes = []
@@ -15,17 +17,21 @@ i = 1
 for script_file in python_files:
     if i <= N:
         print("Running ", script_file, " with args ", f"node0{i}", f"{i}")
-        process = subprocess.Popen(["python", script_file] + [f"node{i}", f"{i}"])
+        process = subprocess.Popen(
+            [activate_env, "&&", "python", script_file] + [f"node{i}", f"{i}"]
+        )
         print("Process ID: ", process.pid)
         processes_storage_nodes.append(process)
         i += 1
     else:
         print("Running ", script_file)
-        process = subprocess.Popen(["python", script_file] + [f" {N}"])
+        process = subprocess.Popen(
+            [activate_env, "&&", "python", script_file] + [f" {N}"]
+        )
         print("Process ID: ", process.pid)
         processes_rest_server = process
     sleep(0.2)
-    
+
 # Set the delay time and number of processes to terminate
 delay_time_seconds = 5  # Set the delay time in seconds
 num_processes_to_terminate = 2  # Set the number of processes to terminate randomly
@@ -39,7 +45,7 @@ pids = [str(process.pid) for process in processes_storage_nodes]
 # Start the subprocess to terminate processes after the set time
 #terminate_process = subprocess.Popen(["python", "terminate_processes.py", str(num_processes_to_terminate), str(delay_time_seconds)]+pids)
 
-processes_to_kill = random.sample(processes_storage_nodes, num_processes_to_terminate)
+processes_to_kill = []#random.sample(processes_storage_nodes, num_processes_to_terminate)
 print("processes_to_kill: ", [process.id for process in processes_to_kill])
 
 # Terminating processes

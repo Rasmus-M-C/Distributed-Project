@@ -48,7 +48,7 @@ def store_file(file_data, response_socket, N):
     file_data_4_names = [random_string(8) for _ in range(k)]
 
     # Send 2 'store data' Protobuf requests with the first half and chunk names
-    placementMethod = "minset"
+    placementMethod = "buddygroup"
 
     if placementMethod == "random":
         #Random
@@ -148,8 +148,7 @@ def store_file(file_data, response_socket, N):
 
     elif placementMethod == "buddygroup":
         #BuddyGroup
-        buddy_group = random.choice(BUDDYGROUPS)
-        addresses = [DATAADDRESSES[i] for i in buddy_group]
+        addresses = random.choice(BUDDYGROUPS)
         
         print("addresses: ", addresses)
 
