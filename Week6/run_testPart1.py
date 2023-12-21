@@ -3,7 +3,7 @@ from time import sleep
 import random
 import sys
 
-N = int(sys.argv[0]) # Number of nodes to run
+N = int(sys.argv[1]) # Number of nodes to run
 
 number_of_nodes = 3
 # List of Python files to run
@@ -46,14 +46,9 @@ pids = [str(process.pid) for process in processes_storage_nodes]
 # Start the subprocess to terminate processes after the set time
 #terminate_process = subprocess.Popen(["python", "terminate_processes.py", str(num_processes_to_terminate), str(delay_time_seconds)]+pids)
 
-processes_to_kill = random.sample(processes_storage_nodes, num_processes_to_terminate)
-print("processes_to_kill: ", [process.id for process in processes_to_kill])
 
-# Terminating processes
-for i, process in enumerate(processes_storage_nodes):
-    if process in processes_to_kill:
-        process.terminate()
-        print(f"Terminated process {pids[i]}")
+
+
 
 # Wait for all subprocesses to finish
 for process in processes_storage_nodes:
