@@ -109,18 +109,14 @@ def chunk_exists(chunk, folders):
 # Example usage
 database_path = "files.db"
 
-
-
-
-s = 5
-N = 6
+#12, 24, 36
+N = 12
+ 
 
 s_list = [2, 3, 4, 6, 8, 10]
 
 #Using a for loop get the average percentage over 100 tests
 for s in s_list:
-    if s >= N:
-        break
     total_percentage = 0
     for i in range(1000):
         percentage = check_file_chunks(database_path, s, N)

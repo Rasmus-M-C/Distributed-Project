@@ -148,8 +148,7 @@ def store_file(file_data, response_socket, N):
 
     elif placementMethod == "buddygroup":
         #BuddyGroup
-        buddy_group = random.choice(BUDDYGROUPS)
-        addresses = [DATAADDRESSES[i] for i in buddy_group]
+        addresses = random.choice(BUDDYGROUPS)
         
         print("addresses: ", addresses)
 
