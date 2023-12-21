@@ -24,7 +24,7 @@ def wipe_and_create_database():
 
     # Create a new database and table using sqlite3.exe
     try:
-        subprocess.run(['sqlite3.exe', db_file, f'.read {sql_script}'], check=True, shell=True)
+        subprocess.run(['sqlite3.exe', db_file, f'.read {sql_script}'], check=True)
         print(f"Database '{db_file}' created successfully using SQL script.")
     except subprocess.CalledProcessError as e:
         print(f"Error running sqlite3.exe: {e}")

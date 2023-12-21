@@ -48,7 +48,7 @@ def store_file(file_data, response_socket, N):
     file_data_4_names = [random_string(8) for _ in range(k)]
 
     # Send 2 'store data' Protobuf requests with the first half and chunk names
-    placementMethod = "minset"
+    placementMethod = "random"
 
     if placementMethod == "random":
         #Random
