@@ -5,7 +5,7 @@ import subprocess
 
 def wipe_and_create_database():
     # Define the SQLite database file
-    db_file = 'file.db'
+    db_file = 'files.db'
     sql_script = 'create_table.sql'
 
     # Close any existing database connections (if any)
