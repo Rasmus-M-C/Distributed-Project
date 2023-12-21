@@ -5,7 +5,6 @@ import sys
 
 N = int(sys.argv[1]) # Number of nodes to run
 
-number_of_nodes = 3
 # List of Python files to run
 python_files = ["storage-node.py" for _ in range(N)] + [ "rest-server.py"]
 

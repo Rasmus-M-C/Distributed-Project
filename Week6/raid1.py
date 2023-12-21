@@ -41,7 +41,7 @@ def store_file(file_data, response_socket, N):
     file_data_4 = file_data[math.ceil(3*size/4.0):math.ceil(4*size/4.0)]
 
     # Generate two random chunk names for each half    -- k chunks = [0, 1, 2, ..., k-1]]
-    k = 2
+    k = 3
     file_data_1_names = [random_string(8) for _ in range(k)]
     file_data_2_names = [random_string(8) for _ in range(k)]
     file_data_3_names = [random_string(8) for _ in range(k)]
