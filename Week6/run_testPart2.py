@@ -15,19 +15,13 @@ i = 1
 for script_file in python_files:
     if i <= N:
         print("Running ", script_file, " with args ", f"node0{i}", f"{i}")
-        process = subprocess.Popen(
-            ["python", script_file] + [f"node{i}", f"{i}"],
-            shell=True
-        )
+        process = subprocess.Popen(["python", script_file] + [f"node{i}", f"{i}"])
         print("Process ID: ", process.pid)
         processes_storage_nodes.append(process)
         i += 1
     else:
         print("Running ", script_file)
-        process = subprocess.Popen(
-            ["python", script_file] + [f" {N}"],
-            shell=True
-        )
+        process = subprocess.Popen(["python", script_file] + [f" {N}"])
         print("Process ID: ", process.pid)
         processes_rest_server = process
     sleep(0.2)
