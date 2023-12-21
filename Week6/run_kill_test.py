@@ -115,13 +115,18 @@ database_path = "files.db"
 s = 5
 N = 6
 
-#Using a for loop get the average percentage over 100 tests
-total_percentage = 0
-for i in range(1000):
-    percentage = check_file_chunks(database_path, s, N)
-    total_percentage += percentage
+s_list = [2, 3, 4, 6, 8, 10]
 
-print(f"Average percentage of files with at least one copy of each chunk: {total_percentage/1000}%")
+#Using a for loop get the average percentage over 100 tests
+for s in s_list:
+    if s >= N:
+        break
+    total_percentage = 0
+    for i in range(1000):
+        percentage = check_file_chunks(database_path, s, N)
+        total_percentage += percentage
+
+    print(f"s:{s} percentage: {total_percentage/1000}%")
 
 
 # percentage = check_file_chunks(database_path, s, N)
