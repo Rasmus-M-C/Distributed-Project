@@ -25,28 +25,14 @@ for script_file in python_files:
         print("Process ID: ", process.pid)
         processes_rest_server = process
     sleep(0.2)
-    
-# Set the delay time and number of processes to terminate
-delay_time_seconds = 5  # Set the delay time in seconds
-num_processes_to_terminate = 2  # Set the number of processes to terminate randomly
-
-# Wait for the specified delay time
-sleep(delay_time_seconds)
-
-# Get the PIDs of the processes
-pids = [str(process.pid) for process in processes_storage_nodes]
-
-# Start the subprocess to terminate processes after the set time
-#terminate_process = subprocess.Popen(["python", "terminate_processes.py", str(num_processes_to_terminate), str(delay_time_seconds)]+pids)
 
 
-
-
-
-# Wait for all subprocesses to finish
-for process in processes_storage_nodes:
-    process.wait()
-    print(f"Process {process.pid} finished")
-
-processes_rest_server.wait()
-print(f"Process {processes_rest_server.pid} finished")
+#on keyboard interrupt, kill all processes
+try:
+    while True:
+        sleep(1)
+except KeyboardInterrupt:
+    for process in processes_storage_nodes:
+        process.kill()
+    processes_rest_server.kill()
+    print("All processes killed")
