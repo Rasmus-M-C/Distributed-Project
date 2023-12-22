@@ -31,30 +31,11 @@ for script_file in python_files:
         print("Process ID: ", process.pid)
         processes_rest_server = process
     sleep(0.2)
+#random_node = random.randint(0, N-1)
+#number_of_nodes_to_kill = 2
+#random_nodes = random.sample(processes_storage_nodes, k = number_of_nodes_to_kill)
 
-
-#After some time, kill a random storage node
-sleep(5)
-random_node = random.randint(0, N-1)
-number_of_nodes_to_kill = 2
-random_nodes = random.sample(processes_storage_nodes, k = number_of_nodes_to_kill)
-print("Killings node ", random_nodes + 1)
-for random_node in random_nodes:
-    random_node.terminate()
-    random_node.wait()
-
-#on keyboard interrupt, kill all processes
-try:
-    while True:
-        sleep(1)
-except KeyboardInterrupt:
-    for process in processes_storage_nodes:
-        process.terminate()
-    processes_rest_server.terminate()
-    print("All processes terminated")
-
-
-# # Set the delay time and number of processes to terminate
+# Set the delay time and number of processes to terminate
 # delay_time_seconds = 5  # Set the delay time in seconds
 # num_processes_to_terminate = 1  # Set the number of processes to terminate randomly
 
