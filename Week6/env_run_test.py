@@ -34,7 +34,7 @@ for script_file in python_files:
 
 # Set the delay time and number of processes to terminate
 delay_time_seconds = 5  # Set the delay time in seconds
-num_processes_to_terminate = 2  # Set the number of processes to terminate randomly
+num_processes_to_terminate = 1  # Set the number of processes to terminate randomly
 
 # Wait for the specified delay time
 sleep(delay_time_seconds)
@@ -45,8 +45,8 @@ pids = [str(process.pid) for process in processes_storage_nodes]
 # Start the subprocess to terminate processes after the set time
 #terminate_process = subprocess.Popen(["python", "terminate_processes.py", str(num_processes_to_terminate), str(delay_time_seconds)]+pids)
 
-processes_to_kill = []#random.sample(processes_storage_nodes, num_processes_to_terminate)
-print("processes_to_kill: ", [process.id for process in processes_to_kill])
+processes_to_kill = random.sample(processes_storage_nodes, num_processes_to_terminate)
+print("processes_to_kill: ", [process.pid for process in processes_to_kill])
 
 # Terminating processes
 for i, process in enumerate(processes_storage_nodes):
