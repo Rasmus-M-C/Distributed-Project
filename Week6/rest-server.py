@@ -99,7 +99,7 @@ def receive_heartbeats():
             # print(f"{msg}")
             # add storage node to list of storage nodes
             storage_nodes[msg] = time.time()
-            #print(f"Storage nodes: {storage_nodes}")
+            print(f"Storage nodes: {storage_nodes}")
 
         # check if any storage nodes have not sent a heartbeat in the last 20 seconds
         for node in list(storage_nodes.keys()):
@@ -107,7 +107,7 @@ def receive_heartbeats():
                 print(f"Storage node {node} is dead")
                 del storage_nodes[node]
 
-        time.sleep(.02)
+        time.sleep(.1)
 
 heartbeat_thread = threading.Thread(target=receive_heartbeats)
 heartbeat_thread.start()
