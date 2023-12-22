@@ -23,6 +23,8 @@ import reedsolomon
 from utils import is_raspberry_pi
 import sys
 
+import threading
+
 
 N = sys.argv[1] if len(sys.argv) > 1 else 9
 
@@ -67,12 +69,63 @@ time.sleep(1)
 print("Listening to ZMQ messages on tcp://*:5560")
 
 
+
+#look for heartbeats on "tcp://localhost:5555"
+heartbeat_socket = context.socket(zmq.PULL)
+heartbeat_socket.bind("tcp://*:5555")
+#heartbeat_socket.setsockopt(zmq.SUBSCRIBE, b'')
+
+shutdown_event = threading.Event()
+
+#add a way to keep track of storage_nodes
+storage_nodes = {}
+
+
+#receive heartbeats from all workers on a separate thread
+
+def receive_heartbeats():
+    while not shutdown_event.is_set():
+        try:
+            msg = heartbeat_socket.recv_string(flags=zmq.NOBLOCK)
+        except zmq.ZMQError as e:
+            if e.errno == zmq.EAGAIN:
+                print("Waiting for heartbeat...")
+                pass  # no message was ready
+            else:
+                raise  # real error
+        else:
+            # process message
+            print(f"{msg}")
+            # add storage node to list of storage nodes
+            storage_nodes[msg] = time.time()
+
+        # check if any storage nodes have not sent a heartbeat in the last 20 seconds
+        for node in list(storage_nodes.keys()):
+            if time.time() - storage_nodes[node] > 20:
+                print(f"Storage node {node} is dead")
+                del storage_nodes[node]
+
+        print(f"Storage nodes: {storage_nodes}")
+        time.sleep(1)
+
+heartbeat_thread = threading.Thread(target=receive_heartbeats)
+heartbeat_thread.start()
+
+#close thread function to be called on shutdown
+def close_heartbeats():
+    shutdown_event.set()
+    heartbeat_thread.join()
+    print("Heartbeat thread closed")
+
 # Instantiate the Flask app (must be before the endpoint functions)
 app = Flask(__name__)
 # Close the DB connection after serving the request
-app.teardown_appcontext(close_db)
+#app.teardown_appcontext([close_db, close_heartbeats])
 
-
+@app.teardown_appcontext
+def teardown_app_context(error=None):
+    close_db()
+    close_heartbeats()
 
 @app.route('/')
 def hello():

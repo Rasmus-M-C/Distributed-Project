@@ -3,6 +3,7 @@ Aarhus University - Distributed Storage course - Lab 4
 
 Storage Node
 """
+import time
 import zmq
 import messages_pb2
 
@@ -28,9 +29,10 @@ if data_folder != "./":
         pass
 print("Data folder: %s" % data_folder)
 
+id = int(sys.argv[2]) if len(sys.argv) > 2 else 1
 
 # On the local computer: use localhost
-pull_address = f"tcp://localhost:{int(sys.argv[2]) * 3 + 5557}"
+pull_address = f"tcp://localhost:{id * 3 + 5557}"
 push_address = "tcp://localhost:5558"
 subscriber_address = "tcp://localhost:5559"
 
@@ -58,10 +60,22 @@ poller = zmq.Poller()
 poller.register(receiver, zmq.POLLIN)
 poller.register(subscriber, zmq.POLLIN)
 
+#set up heartbeat
+heartbeat = context.socket(zmq.PUSH)
+heartbeat.connect("tcp://localhost:5555")
+
+last_beat = 0
+
 while True:
+    #Loop to send heartbeat every 10 seconds
+    if time.time() - last_beat > 10:
+        heartbeat.send_string(f"{id}")
+        last_beat = time.time()
+
+
     try:
         # Poll all sockets
-        socks = dict(poller.poll())
+        socks = dict(poller.poll(timeout=1000))
     except KeyboardInterrupt:
         break
     pass
