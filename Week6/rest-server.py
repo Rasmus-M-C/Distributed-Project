@@ -90,6 +90,7 @@ def receive_heartbeats():
         except zmq.ZMQError as e:
             if e.errno == zmq.EAGAIN:
                 # print("Waiting for heartbeat...")
+                #print("Waiting for heartbeat...")
                 pass  # no message was ready
             else:
                 raise  # real error
@@ -98,6 +99,7 @@ def receive_heartbeats():
             # print(f"{msg}")
             # add storage node to list of storage nodes
             storage_nodes[msg] = time.time()
+            #print(f"Storage nodes: {storage_nodes}")
 
         # check if any storage nodes have not sent a heartbeat in the last 20 seconds
         for node in list(storage_nodes.keys()):
@@ -105,8 +107,7 @@ def receive_heartbeats():
                 print(f"Storage node {node} is dead")
                 del storage_nodes[node]
 
-        # print(f"Storage nodes: {storage_nodes}")
-        time.sleep(1)
+        time.sleep(.02)
 
 heartbeat_thread = threading.Thread(target=receive_heartbeats)
 heartbeat_thread.start()
