@@ -99,7 +99,7 @@ def receive_heartbeats():
             # print(f"{msg}")
             # add storage node to list of storage nodes
             storage_nodes[msg] = time.time()
-            print(f"Storage nodes: {storage_nodes}")
+            #print(f"Storage nodes: {storage_nodes}")
 
         # check if any storage nodes have not sent a heartbeat in the last 20 seconds
         for node in list(storage_nodes.keys()):
