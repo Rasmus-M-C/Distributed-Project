@@ -43,11 +43,13 @@ except KeyboardInterrupt:
     print("\nKeyboard interrupt")
     for process in processes_storage_nodes:
         process.kill()
-    processes_rest_server.kill()
+    if processes_rest_server is not None:
+        processes_rest_server.kill()
     print("All processes killed")
 except Exception as e:
     print(e)
     for process in processes_storage_nodes:
         process.kill()
-    processes_rest_server.kill()
+    if processes_rest_server is not None:
+        processes_rest_server.kill()
     print("All processes killed")
