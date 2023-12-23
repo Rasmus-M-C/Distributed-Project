@@ -2,7 +2,6 @@ import os
 import random
 import sqlite3
 import json
-import matplotlib.pyplot as plt
 
 def check_file_chunks(database_path, s, N):
     # Load the database containing file names for each chunk
@@ -139,89 +138,4 @@ for s in s_list:
 
 # Write the updated results back to the file
 with open(file_name, 'w') as json_file:
-    json.dump(results, json_file, indent=2)
-
-
-
-
-
-
-
-
-
-
-
-# Plotting the results
-
-# Function to read results from a JSON file and filter by N
-def read_and_filter_results(filename, target_N):
-    with open(filename, 'r') as json_file:
-        results = json.load(json_file)
-    
-    # Filter results based on the target N
-    filtered_results = [result for result in results if result['N'] == target_N]
-
-    return filtered_results
-
-# Read and filter results from the JSON file for a specific N
-input_filename = file_name
-target_N_value = N  # Change this to the desired N value
-filtered_results = read_and_filter_results(input_filename, target_N_value)
-
-# Extract data for plotting from the filtered results
-s_values = [result['s'] for result in filtered_results]
-percentage_values = [result['loss_percentage'] for result in filtered_results]
-
-# Create a plot
-plt.plot(s_values, percentage_values, marker='o', linestyle='-', color='b')
-plt.title(f'Percentage vs. s Values for N = {target_N_value}')
-plt.xlabel('s')
-plt.ylabel('Percentage')
-plt.grid(True)
-plt.show()
-
-
-
-
-#buddygroup
-#Running test with s = 2 and N = 12
-# s:2 percentage: 91.94845360824746%
-# Running test with s = 3 and N = 12
-# s:3 percentage: 84.19587628865982%
-# Running test with s = 4 and N = 12
-# s:4 percentage: 75.35051546391753%
-# Running test with s = 6 and N = 12
-# s:6 percentage: 56.78350515463917%
-# Running test with s = 8 and N = 12
-# s:8 percentage: 34.19587628865978%
-# Running test with s = 10 and N = 12
-# s:10 percentage: 15.680412371134024%
-
-#random
-# Running test with s = 2 and N = 12
-# s:2 percentage: 97.38383838383845%
-# Running test with s = 3 and N = 12
-# s:3 percentage: 93.60606060606062%
-# Running test with s = 4 and N = 12
-# s:4 percentage: 85.4545454545455%
-# Running test with s = 6 and N = 12
-# s:6 percentage: 59.33333333333339%
-# Running test with s = 8 and N = 12
-# s:8 percentage: 25.282828282828287%
-# Running test with s = 10 and N = 12
-# s:10 percentage: 3.181818181818179%
-    
-#minset
-# Running test with s = 2 and N = 12
-# s:2 percentage: 100.0%
-# Running test with s = 3 and N = 12
-# s:3 percentage: 99.51%
-# Running test with s = 4 and N = 12
-# s:4 percentage: 98.27%
-# Running test with s = 6 and N = 12
-# s:6 percentage: 90.85%
-# Running test with s = 8 and N = 12
-# s:8 percentage: 75.19%
-# Running test with s = 10 and N = 12
-# s:10 percentage: 45.32%
-    
+    json.dump(results, json_file, indent=2)  
