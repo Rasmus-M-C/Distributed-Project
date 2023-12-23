@@ -117,7 +117,7 @@ s_list = [2, 3, 4, 6, 8, 10]
 
 #Append restults to a json file
 
-file_name = 'random_kill_results.json'
+file_name = 'buddygroup_kill_results.json'
 # Read existing results from the file
 try:
     with open(file_name, 'r') as json_file:
