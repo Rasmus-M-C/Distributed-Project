@@ -14,7 +14,7 @@
 	"results": [
 		{
 			"id": "26ede75f-4d8a-454f-ae53-ba4d5a98f17d",
-			"name": "http://localhost:9005/files/1",
+			"name": "100KB Download",
 			"url": "http://localhost:9005/files/1",
 			"time": 19,
 			"responseCode": {
@@ -228,7 +228,7 @@
 		},
 		{
 			"id": "c011c652-9a04-4832-8ab1-a0a2748f04a7",
-			"name": "http://localhost:9005/files/2",
+			"name": "1MB Download",
 			"url": "http://localhost:9005/files/2",
 			"time": 21,
 			"responseCode": {
@@ -442,7 +442,7 @@
 		},
 		{
 			"id": "c9e50196-70da-4d7b-9ed4-b161f8ab929f",
-			"name": "http://localhost:9005/files/3",
+			"name": "10MB Download",
 			"url": "http://localhost:9005/files/3",
 			"time": 107,
 			"responseCode": {
@@ -656,7 +656,7 @@
 		},
 		{
 			"id": "28dfb320-3b2e-45d6-ac46-bdf3acea8596",
-			"name": "http://localhost:9005/files/4",
+			"name": "100MB Download",
 			"url": "http://localhost:9005/files/4",
 			"time": 1192,
 			"responseCode": {
