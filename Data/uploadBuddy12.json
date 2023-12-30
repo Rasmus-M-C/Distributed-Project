@@ -1,22 +1,22 @@
 {
-	"id": "733e8773-1f2c-43f5-ad23-924f1fe3c211",
+	"id": "d0e4d8c7-08de-4d82-a76c-65063d1f37e7",
 	"name": "Uploads",
-	"timestamp": "2023-12-30T13:14:24.009Z",
-	"collection_id": "29405522-f801d023-e664-4f23-9cff-0948cde658cf",
+	"timestamp": "2023-12-30T16:23:25.633Z",
+	"collection_id": "31939937-cce2796f-3704-4784-ae37-8abc8bb33289",
 	"folder_id": 0,
 	"environment_id": "0",
-	"totalPass": 100,
-	"delay": 24,
-	"persist": false,
+	"totalPass": 400,
+	"delay": "20",
+	"persist": true,
 	"status": "finished",
-	"startedAt": "2023-12-30T12:56:49.771Z",
+	"startedAt": "2023-12-30T16:20:04.758Z",
 	"totalFail": 0,
 	"results": [
 		{
-			"id": "de8fcadb-0336-4467-8283-8ef9d6fbcd35",
+			"id": "fd4301a4-d604-4e40-91af-96f34922c45b",
 			"name": "100KB Upload",
 			"url": "http://localhost:9005/files_mp",
-			"time": 2918,
+			"time": 359,
 			"responseCode": {
 				"code": 201,
 				"name": "CREATED"
@@ -31,106 +31,106 @@
 				}
 			},
 			"times": [
-				2932,
-				3395,
-				2946,
-				3067,
-				3653,
-				2259,
-				2848,
-				3236,
-				3090,
-				2993,
-				2393,
-				3061,
-				3542,
-				2611,
-				2916,
-				3356,
-				2968,
-				3001,
-				3150,
-				3439,
-				2492,
-				2994,
-				2464,
-				2027,
-				2690,
-				2696,
-				3126,
-				3142,
-				2730,
-				3116,
-				2797,
-				3012,
-				1897,
-				1751,
-				2993,
-				2379,
-				3299,
-				2111,
-				2497,
-				2940,
-				2981,
-				3236,
-				2507,
-				2850,
-				2856,
-				2486,
-				2138,
-				3029,
-				2624,
-				2773,
-				3116,
-				2561,
-				3412,
-				3098,
-				3092,
-				3048,
-				3013,
-				2996,
-				2747,
-				2750,
-				3006,
-				2731,
-				2875,
-				3237,
-				2813,
-				2520,
-				2348,
-				2639,
-				3679,
-				3029,
-				3095,
-				3283,
-				3284,
-				2278,
-				3126,
-				3239,
-				2473,
-				3144,
-				3442,
-				2849,
-				2458,
-				3393,
-				3063,
-				2129,
-				1798,
-				3879,
-				2676,
-				3019,
-				2561,
-				2707,
-				2648,
-				3918,
-				2355,
-				3157,
-				2193,
-				2629,
-				3418,
-				3368,
-				2329,
-				2918
+				317,
+				233,
+				457,
+				216,
+				60,
+				154,
+				316,
+				317,
+				249,
+				240,
+				219,
+				274,
+				262,
+				307,
+				202,
+				275,
+				261,
+				245,
+				272,
+				218,
+				161,
+				155,
+				170,
+				285,
+				209,
+				407,
+				367,
+				173,
+				235,
+				122,
+				390,
+				459,
+				307,
+				249,
+				186,
+				411,
+				416,
+				118,
+				246,
+				191,
+				326,
+				265,
+				273,
+				399,
+				314,
+				198,
+				206,
+				378,
+				341,
+				337,
+				196,
+				128,
+				367,
+				318,
+				284,
+				235,
+				384,
+				123,
+				146,
+				178,
+				319,
+				320,
+				407,
+				97,
+				288,
+				251,
+				158,
+				284,
+				268,
+				307,
+				334,
+				265,
+				400,
+				209,
+				190,
+				216,
+				256,
+				236,
+				295,
+				446,
+				279,
+				192,
+				212,
+				181,
+				325,
+				158,
+				251,
+				220,
+				226,
+				281,
+				253,
+				234,
+				250,
+				189,
+				203,
+				200,
+				119,
+				212,
+				213,
+				359
 			],
 			"allTests": [
 				{
@@ -436,672 +436,1293 @@
 			]
 		},
 		{
-			"id": "2365c9ce-c790-4144-bcce-87040606ad30",
+			"id": "071fe04d-5f8e-4902-a4ee-db72947e132c",
 			"name": "1MB Upload",
 			"url": "http://localhost:9005/files_mp",
-			"time": 3514,
+			"time": 364,
 			"responseCode": {
 				"code": 201,
 				"name": "CREATED"
 			},
-			"tests": {},
-			"testPassFailCounts": {},
+			"tests": {
+				"Status code is 201": true
+			},
+			"testPassFailCounts": {
+				"Status code is 201": {
+					"pass": 100,
+					"fail": 0
+				}
+			},
 			"times": [
-				3731,
-				3354,
-				2095,
-				4270,
-				3784,
-				2731,
-				2079,
-				2167,
-				1546,
-				3397,
-				2712,
-				2567,
-				3038,
-				3420,
-				2670,
-				2612,
-				2730,
-				1413,
-				3130,
-				2330,
-				2081,
-				3225,
-				2819,
-				3188,
-				2954,
-				2229,
-				2759,
-				3504,
-				2784,
-				3617,
-				2686,
-				2066,
-				3234,
-				2747,
-				2197,
-				2053,
-				2728,
-				3283,
-				2790,
-				3035,
-				2254,
-				3060,
-				2878,
-				3043,
-				3154,
-				2411,
-				2293,
-				2444,
-				2378,
-				2335,
-				1899,
-				3079,
-				1744,
-				2478,
-				2628,
-				3680,
-				2313,
-				3033,
-				2830,
-				2811,
-				2348,
-				2141,
-				3053,
-				2628,
-				2688,
-				3230,
-				2303,
-				3641,
-				3381,
-				3279,
-				2787,
-				3217,
-				2510,
-				2829,
-				3020,
-				2427,
-				2315,
-				2977,
-				3401,
-				3018,
-				2661,
-				2899,
-				2603,
-				2683,
-				2930,
-				3244,
-				3093,
-				2984,
-				2613,
-				2185,
-				2996,
-				2681,
-				2944,
-				2996,
-				2347,
-				3689,
-				3595,
-				2418,
-				3292,
-				3514
+				224,
+				274,
+				167,
+				173,
+				432,
+				287,
+				216,
+				337,
+				335,
+				428,
+				256,
+				308,
+				268,
+				298,
+				251,
+				141,
+				247,
+				291,
+				205,
+				112,
+				319,
+				203,
+				321,
+				188,
+				367,
+				378,
+				157,
+				199,
+				106,
+				180,
+				364,
+				150,
+				265,
+				232,
+				349,
+				238,
+				365,
+				337,
+				328,
+				475,
+				210,
+				401,
+				391,
+				243,
+				418,
+				226,
+				221,
+				531,
+				332,
+				251,
+				300,
+				307,
+				441,
+				345,
+				219,
+				274,
+				217,
+				360,
+				410,
+				233,
+				318,
+				225,
+				282,
+				220,
+				281,
+				259,
+				196,
+				279,
+				380,
+				276,
+				278,
+				369,
+				375,
+				338,
+				272,
+				211,
+				297,
+				188,
+				313,
+				257,
+				314,
+				324,
+				309,
+				313,
+				291,
+				392,
+				407,
+				297,
+				205,
+				259,
+				151,
+				313,
+				259,
+				413,
+				418,
+				238,
+				435,
+				162,
+				280,
+				364
 			],
 			"allTests": [
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{}
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				}
 			]
 		},
 		{
-			"id": "2b100ec6-e74e-496b-bb35-04c9ea9c16ae",
+			"id": "f3e5a0e3-96d3-4643-85d7-420257246a40",
 			"name": "10MB Upload",
 			"url": "http://localhost:9005/files_mp",
-			"time": 2860,
+			"time": 382,
 			"responseCode": {
 				"code": 201,
 				"name": "CREATED"
 			},
-			"tests": {},
-			"testPassFailCounts": {},
+			"tests": {
+				"Status code is 201": true
+			},
+			"testPassFailCounts": {
+				"Status code is 201": {
+					"pass": 100,
+					"fail": 0
+				}
+			},
 			"times": [
-				3108,
-				3037,
-				3134,
-				3338,
-				3334,
-				2497,
-				2917,
-				2330,
-				2366,
-				2682,
-				2588,
-				3109,
-				2642,
-				3169,
+				273,
+				355,
+				312,
+				382,
+				350,
+				215,
+				298,
+				474,
+				320,
+				176,
+				320,
+				335,
+				232,
+				267,
+				298,
+				407,
+				350,
+				319,
+				267,
+				391,
+				408,
+				325,
+				421,
+				283,
+				373,
+				305,
+				229,
+				354,
+				269,
+				349,
+				346,
+				131,
+				231,
+				326,
+				239,
+				456,
+				255,
+				383,
+				354,
+				396,
+				479,
+				260,
+				218,
+				227,
+				507,
+				248,
+				347,
+				298,
+				258,
+				336,
+				354,
+				530,
+				397,
+				302,
+				400,
+				415,
+				412,
+				470,
+				246,
+				396,
+				251,
+				195,
+				363,
+				214,
+				289,
+				240,
+				277,
+				315,
+				280,
+				506,
+				233,
+				247,
+				226,
+				228,
+				107,
+				239,
+				248,
+				161,
+				368,
+				283,
+				276,
+				263,
+				340,
+				300,
+				424,
 				212,
-				1385,
-				3107,
-				1138,
-				1192,
-				3319,
-				1719,
-				591,
-				2965,
-				3298,
-				3218,
-				2365,
-				3199,
-				3033,
-				1519,
-				3546,
-				1741,
-				570,
-				3188,
-				3223,
-				3848,
-				1391,
-				3424,
-				718,
-				2118,
-				3205,
-				3086,
-				3430,
-				2953,
-				2453,
-				2277,
-				2978,
-				2818,
-				3446,
-				3497,
-				2114,
-				3017,
-				3016,
-				2652,
-				2618,
-				2688,
-				2545,
-				3535,
-				3558,
-				75,
-				2379,
-				3463,
-				604,
-				2187,
-				2524,
-				2889,
-				2293,
-				2765,
-				4440,
-				2420,
-				2438,
-				2965,
-				2613,
-				2078,
-				3438,
-				2454,
-				3076,
-				3181,
-				936,
-				2318,
-				3881,
-				3755,
-				2912,
-				2581,
-				3335,
-				3350,
-				1263,
-				651,
-				2734,
-				2102,
-				2629,
-				3811,
-				3262,
-				1556,
-				2833,
-				1254,
-				2813,
-				2598,
-				2829,
-				2750,
-				2860
+				153,
+				151,
+				272,
+				316,
+				355,
+				274,
+				128,
+				396,
+				299,
+				273,
+				90,
+				423,
+				236,
+				382
 			],
 			"allTests": [
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{}
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				}
 			]
 		},
 		{
-			"id": "15cdf735-dc97-4974-b7ea-8df21b8ccbca",
+			"id": "f5b570ba-0623-4bb4-ae92-49f9b00d3833",
 			"name": "100MB Upload",
 			"url": "http://localhost:9005/files_mp",
-			"time": 2324,
+			"time": 1175,
 			"responseCode": {
-				"code": 500,
-				"name": "INTERNAL SERVER ERROR"
+				"code": 201,
+				"name": "CREATED"
 			},
-			"tests": {},
-			"testPassFailCounts": {},
+			"tests": {
+				"Status code is 201": true
+			},
+			"testPassFailCounts": {
+				"Status code is 201": {
+					"pass": 100,
+					"fail": 0
+				}
+			},
 			"times": [
-				774,
+				930,
+				887,
+				1172,
+				952,
+				925,
+				893,
+				1009,
+				783,
+				1021,
+				983,
+				828,
+				903,
+				968,
+				1063,
+				815,
+				908,
+				1142,
+				901,
 				914,
-				912,
-				1857,
-				807,
-				3719,
-				1836,
-				1275,
-				2505,
-				1276,
-				2879,
+				1018,
+				1038,
+				963,
+				910,
+				1022,
+				792,
+				827,
+				930,
+				800,
+				971,
+				924,
+				828,
+				980,
+				883,
+				950,
+				752,
+				1015,
+				982,
+				1021,
+				895,
+				1005,
+				870,
+				975,
+				875,
+				846,
+				1041,
+				965,
 				1048,
-				929,
-				2576,
-				1256,
-				761,
-				589,
-				1380,
-				793,
-				1377,
-				906,
-				1269,
-				1486,
-				1909,
-				1389,
-				681,
-				2228,
-				3604,
-				4309,
-				3959,
-				990,
-				1921,
-				1077,
-				2332,
-				1809,
-				592,
-				1641,
-				3490,
-				774,
-				612,
-				1303,
-				2578,
-				2230,
-				927,
-				1673,
-				825,
-				889,
-				711,
-				2095,
-				821,
-				1658,
-				1459,
-				4255,
-				3306,
-				2874,
-				1171,
-				1590,
-				2572,
-				3209,
-				3983,
-				3027,
-				1016,
-				1256,
-				3079,
-				1506,
-				1103,
-				1704,
-				674,
-				1959,
-				895,
-				862,
-				1487,
-				2438,
-				3855,
-				1055,
-				2508,
-				895,
-				1404,
-				3755,
-				1539,
-				2061,
-				1016,
-				2623,
-				3725,
-				2105,
-				2250,
-				722,
-				717,
-				3048,
-				1260,
-				4151,
-				527,
-				1740,
-				2077,
-				935,
-				1689,
-				2507,
-				1823,
-				3186,
-				2324
+				925,
+				932,
+				942,
+				840,
+				978,
+				875,
+				851,
+				1130,
+				1051,
+				971,
+				1008,
+				1036,
+				818,
+				1036,
+				834,
+				875,
+				859,
+				837,
+				913,
+				1061,
+				982,
+				950,
+				867,
+				837,
+				877,
+				996,
+				1066,
+				1031,
+				1066,
+				1048,
+				831,
+				1093,
+				991,
+				981,
+				1150,
+				1193,
+				1548,
+				1371,
+				1064,
+				1138,
+				1089,
+				1139,
+				912,
+				1111,
+				1104,
+				915,
+				1279,
+				1161,
+				1018,
+				1124,
+				998,
+				916,
+				1175
 			],
 			"allTests": [
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{},
-				{}
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				},
+				{
+					"Status code is 201": true
+				}
 			]
 		}
 	],
 	"count": 100,
-	"totalTime": 1009620,
+	"totalTime": 183332,
 	"collection": {
 		"requests": [
 			{
-				"id": "de8fcadb-0336-4467-8283-8ef9d6fbcd35",
+				"id": "fd4301a4-d604-4e40-91af-96f34922c45b",
 				"method": "POST"
 			},
 			{
-				"id": "2365c9ce-c790-4144-bcce-87040606ad30",
+				"id": "071fe04d-5f8e-4902-a4ee-db72947e132c",
 				"method": "POST"
 			},
 			{
-				"id": "2b100ec6-e74e-496b-bb35-04c9ea9c16ae",
+				"id": "f3e5a0e3-96d3-4643-85d7-420257246a40",
 				"method": "POST"
 			},
 			{
-				"id": "15cdf735-dc97-4974-b7ea-8df21b8ccbca",
+				"id": "f5b570ba-0623-4bb4-ae92-49f9b00d3833",
 				"method": "POST"
 			}
 		]
