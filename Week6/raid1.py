@@ -1,3 +1,4 @@
+import time
 import messages_pb2
 import math
 import random
@@ -149,53 +150,34 @@ def store_file(file_data, response_socket, N):
     elif placementMethod == "buddygroup":
         #BuddyGroup
         addresses = random.choice(BUDDYGROUPS)
+        def send_data(file_names, file_data, addresses):
+            for address in addresses:
+                with context.socket(zmq.PUSH) as send_task_socket:
+                    max_retries = 5
+                    retry_delay = 0.1  # Start with 100ms
+                    for attempt in range(max_retries):
+                        try:
+                            send_task_socket.bind(address)
+                            for name in file_names:
+                                task = messages_pb2.storedata_request()
+                                task.filename = name
+                                send_task_socket.send_multipart([
+                                    task.SerializeToString(),
+                                    file_data
+                                ])
+                            send_task_socket.close()
+                            break  # Success, exit retry loop
+                        except zmq.ZMQError as e:
+                            print(f"Attempt {attempt + 1} failed, error: {e}")
+                            time.sleep(retry_delay)
+                            retry_delay *= 1.2
         
         print("addresses: ", addresses)
 
-        for name in file_data_1_names:
-            task = messages_pb2.storedata_request()
-            task.filename = name
-            address = random.choice(addresses)
-            send_task_socket = context.socket(zmq.PUSH)
-            send_task_socket.bind(address)
-            send_task_socket.send_multipart([
-                    task.SerializeToString(),
-                    file_data_1
-                ])
-            send_task_socket.close()
-        for name in file_data_2_names:
-            task = messages_pb2.storedata_request()
-            task.filename = name
-            address = random.choice(addresses)
-            send_task_socket = context.socket(zmq.PUSH)
-            send_task_socket.bind(address)
-            send_task_socket.send_multipart([
-                    task.SerializeToString(),
-                    file_data_2
-                ])
-            send_task_socket.close()
-        for name in file_data_3_names:
-            task = messages_pb2.storedata_request()
-            task.filename = name
-            address = random.choice(addresses)
-            send_task_socket = context.socket(zmq.PUSH)
-            send_task_socket.bind(address)
-            send_task_socket.send_multipart([
-                    task.SerializeToString(),
-                    file_data_3
-                ])
-            send_task_socket.close()
-        for name in file_data_4_names:
-            task = messages_pb2.storedata_request()
-            task.filename = name
-            address = random.choice(addresses)
-            send_task_socket = context.socket(zmq.PUSH)
-            send_task_socket.bind(address)
-            send_task_socket.send_multipart([
-                    task.SerializeToString(),
-                    file_data_4
-                ])
-            send_task_socket.close()
+        send_data(file_data_1_names, file_data_1, addresses)
+        send_data(file_data_2_names, file_data_2, addresses)
+        send_data(file_data_3_names, file_data_3, addresses)
+        send_data(file_data_4_names, file_data_4, addresses)
 
         # Wait until we receive 8 responses from the workers
         #print("Waiting for responses...", range(len(file_data_1_names) + len(file_data_2_names) + len(file_data_3_names) + len(file_data_4_names)))
