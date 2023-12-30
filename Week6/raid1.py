@@ -7,6 +7,7 @@ import zmq
 from utils import random_string
 import zmq
 import json
+import math
 
 
 
@@ -149,35 +150,59 @@ def store_file(file_data, response_socket, N):
 
     elif placementMethod == "buddygroup":
         #BuddyGroup
-        addresses = random.choice(BUDDYGROUPS)
-        def send_data(file_names, file_data, addresses):
-            for address in addresses:
-                with context.socket(zmq.PUSH) as send_task_socket:
-                    max_retries = 5
-                    retry_delay = 0.1  # Start with 100ms
-                    for attempt in range(max_retries):
-                        try:
-                            send_task_socket.bind(address)
-                            for name in file_names:
-                                task = messages_pb2.storedata_request()
-                                task.filename = name
-                                send_task_socket.send_multipart([
-                                    task.SerializeToString(),
-                                    file_data
-                                ])
-                            send_task_socket.close()
-                            break  # Success, exit retry loop
-                        except zmq.ZMQError as e:
-                            print(f"Attempt {attempt + 1} failed, error: {e}")
-                            time.sleep(retry_delay)
-                            retry_delay *= 1.2
-        
-        print("addresses: ", addresses)
+        all_addresses = random.choice(BUDDYGROUPS)
+        def split_and_send_data(file_names, file_datas, addresses):
 
-        send_data(file_data_1_names, file_data_1, addresses)
-        send_data(file_data_2_names, file_data_2, addresses)
-        send_data(file_data_3_names, file_data_3, addresses)
-        send_data(file_data_4_names, file_data_4, addresses)
+            #Create a list of tuples of the form (filename, filedata)
+            list_of_names = []
+            list_of_datas = []
+            for i in range(len(file_datas)):
+                for name in file_names[i]:
+                    list_of_names.append(name)
+                    list_of_datas.append(file_datas[i])
+
+            #Scramble the list of tuples
+            zipped = list(zip(list_of_names, list_of_datas))
+            random.shuffle(zipped)
+            list_of_names, list_of_datas = zip(*zipped)
+
+
+            num_addresses = len(addresses)
+            num_files = len(list_of_names)
+            files_per_address = math.ceil(num_files / num_addresses)
+
+            print(type(file_datas))
+
+            for i, address in enumerate(addresses):
+                send_task_socket = context.socket(zmq.PUSH)
+                send_task_socket.bind(address)
+                print("Sending to %s" % address)
+
+                start_index = i * files_per_address
+                end_index = min((i + 1) * files_per_address, num_files)
+                names_chunk = list_of_names[start_index:end_index]
+                data_chunk = list_of_datas[start_index:end_index]
+                ln = len(names_chunk)
+
+                print(len(data_chunk))
+
+                for i in range(ln):
+                    task = messages_pb2.storedata_request()
+                    task.filename = names_chunk[i]
+                    send_task_socket.send_multipart([
+                        task.SerializeToString(),
+                        data_chunk[i]
+                    ])
+                send_task_socket.close()
+
+
+        # Split and send data to addresses
+        #Convatenate the lists of names and data
+        all_file_names = [file_data_1_names,  file_data_2_names, file_data_3_names, file_data_4_names]
+        all_file_data = [file_data_1, file_data_2, file_data_3, file_data_4]
+        
+
+        split_and_send_data(all_file_names, all_file_data, all_addresses)
 
         # Wait until we receive 8 responses from the workers
         #print("Waiting for responses...", range(len(file_data_1_names) + len(file_data_2_names) + len(file_data_3_names) + len(file_data_4_names)))
