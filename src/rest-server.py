@@ -18,7 +18,6 @@ import io # For sending binary data in a HTTP response
 import logging
 
 import raid1
-import reedsolomon
 
 from utils import is_raspberry_pi
 import sys
@@ -182,7 +181,8 @@ def download_file(file_id):
             response_socket
         )
 
-    elif f['storage_mode'] == 'erasure_coding_rs':
+    elif f['storage_mode'] == 'eras
+    ure_coding_rs':
         # TODO Handle Reed Solomon
         # dummyImage to simulate content retrieval
         with open("dummyImage.png", "rb") as image:
